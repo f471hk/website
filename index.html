@@ -1,10 +1,849 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Simple Webpage</title>
-  </head>
-  <body>
-    <h1>Welcome to my webpage!</h1>
-    <p>This is a simple webpage created with HTML.</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fatih Kocabas — Robotics Engineer</title>
+  <meta name="description" content="PhD Researcher at UW–Madison. Robotics, soft magnetic microrobots, optics control, and full-stack engineering. Published at ICRA & IEEE MARSS." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist+Mono:wght@400;500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8f8f2;
+      --white: #ffffff;
+      --border: #3f9fab;
+      --border2: #cbceb3;
+      --ink: #2F3E46;
+      --muted: #6B7A80;
+      --soft: #A8B0A8;
+      --teal: #4C707C;
+      --teal-light: #E8F0F2;
+      --teal-mid: #43b532;
+      --teal-dark: #334F58;
+      --olive: #7D8471;
+      --olive-light: #EDEEE9;
+      --serif: 'Instrument Serif', Georgia, serif;
+      --mono: 'Geist Mono', 'Courier New', monospace;
+      --sans: 'Geist', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(250,250,247,0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    .logo { font-family: var(--mono); font-size: 14px; letter-spacing: .04em; color: var(--teal); font-weight: 500; text-decoration: none; }
+    .logo span { color: var(--olive); }
+    .nav-links { display: flex; gap: 6px; }
+    .nav-links a {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--muted);
+      padding: 7px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all .15s;
+      letter-spacing: .04em;
+      text-decoration: none;
+    }
+    .nav-links a:hover { background: var(--teal-light); color: var(--teal); }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 72px 48px 56px;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 700px) {
+      .hero { grid-template-columns: 1fr; padding: 48px 24px 40px; }
+      .hero-right { flex-direction: row; flex-wrap: wrap; align-items: flex-start; }
+      nav { padding: 14px 24px; }
+    }
+    .eyebrow {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--teal);
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pulse {
+      width: 7px; height: 7px;
+      background: var(--teal);
+      border-radius: 50%;
+      animation: pulse 2.2s infinite;
+      flex-shrink: 0;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.2} }
+    .hero h1 {
+      font-family: var(--serif);
+      font-size: clamp(36px, 5vw, 58px);
+      line-height: 1.06;
+      font-weight: 400;
+      margin-bottom: 20px;
+      color: var(--ink);
+    }
+    .hero h1 em { font-style: italic; color: var(--teal); }
+    .hero-desc {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 500px;
+      line-height: 1.85;
+      margin-bottom: 28px;
+    }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary {
+      font-family: var(--mono);
+      font-size: 12px;
+      background: var(--teal);
+      color: #fff;
+      padding: 11px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      letter-spacing: .04em;
+      transition: opacity .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-primary:hover { opacity: .85; }
+    .btn-ghost {
+      font-family: var(--mono);
+      font-size: 12px;
+      border: 1px solid var(--border2);
+      padding: 11px 22px;
+      border-radius: 7px;
+      cursor: pointer;
+      color: var(--ink);
+      letter-spacing: .04em;
+      transition: all .15s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+    .hero-right {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding-top: 6px;
+    }
+    .stat {
+      font-family: var(--mono);
+      font-size: 11px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 7px 16px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .stat strong { color: var(--teal); font-weight: 500; }
+
+    /* ── SECTION WRAPPER ── */
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ── SKILL STACK ── */
+    .stack-wrap { background: var(--bg); border-bottom: 1px solid var(--border); }
+    .layers { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+    .layer {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      border-bottom: 1px solid var(--border);
+      background: var(--white);
+      transition: background .15s;
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    .layer:last-child { border-bottom: none; }
+    .layer:hover { background: var(--teal-light); }
+    .layer-left {
+      padding: 24px 32px;
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+    }
+    .layer-idx { font-family: var(--mono); font-size: 10px; color: var(--olive); letter-spacing: .1em; }
+    .layer-name { font-family: var(--serif); font-size: 20px; line-height: 1.2; color: var(--ink); }
+    .layer-name em { font-style: italic; color: var(--teal); }
+    .layer-right { padding: 20px 32px; display: flex; flex-wrap: wrap; gap: 9px; align-content: center; }
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      padding: 7px 14px;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      background: var(--white);
+      color: var(--ink);
+      transition: all .15s;
+    }
+    .chip:hover { border-color: var(--teal-mid); background: var(--teal-light); color: var(--teal-dark); }
+    .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+    .dp { background: var(--teal); }
+    .dd { background: var(--teal-dark); }
+    .ds { background: var(--olive); }
+    .dg { background: #8A9B7A; }
+
+    /* ── SHARED SECTION STYLES ── */
+    section { border-top: 1px solid var(--border); }
+    .section-pad { padding: 52px 48px; }
+    @media (max-width: 700px) { .section-pad { padding: 40px 24px; } }
+    .sh { display: flex; flex-direction: column;align-items: baseline; gap: 12px; margin-bottom: 28px; }
+    .sh-t { font-family: var(--serif); font-size: 40px; font-weight: 400; color: var(--ink); }
+    .sh-c { font-family: var(--mono); font-size: 18px; color: var(--soft); }
+
+    /* ── FIGURES ── */
+    .figures-section { background: var(--bg); }
+    .fig-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+    @media (max-width: 700px) { .fig-grid { grid-template-columns: 1fr; } }
+    .fig-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: all .2s;
+      cursor: pointer;
+    }
+    .fig-card:hover { border-color: var(--teal-mid); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(76,112,124,.1); }
+    .fig-thumb {
+      /* ↓ swap background-image: url('your-figure.jpg') here */
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      flex-direction: column;
+      gap: 10px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .06em;
+      background-size: cover;
+      background-position: center;
+    }
+    .ft-1 { background-color: #D4E6EA; }
+    .ft-2 { background-color: #D8DBD0; }
+    .ft-3 { background-color: #C8D8DC; }
+    .ft-4 { background-color: #CDD0C4; }
+    .ft-5 { background-color: #D0DAE0; }
+    .ft-6 { background-color: #CEC8BE; }
+    .fig-placeholder {
+      width: 56px; height: 42px;
+      border: 2px solid var(--teal-mid);
+      border-radius: 4px;
+      position: relative;
+      opacity: .45;
+    }
+    .fig-placeholder::after {
+      content: '';
+      position: absolute;
+      bottom: 6px; left: 5px; right: 5px;
+      height: 2px;
+      background: var(--teal-mid);
+      border-radius: 1px;
+    }
+    .fig-placeholder::before {
+      content: '';
+      position: absolute;
+      top: 6px; left: 5px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--teal-mid);
+    }
+    .fig-badge {
+      position: absolute;
+      top: 12px; right: 12px;
+      font-family: var(--mono);
+      font-size: 9px;
+      padding: 3px 9px;
+      border-radius: 4px;
+      letter-spacing: .07em;
+      background: rgba(76,112,124,.14);
+      color: var(--teal-dark);
+      border: 1px solid rgba(76,112,124,.25);
+    }
+    .fig-info { padding: 18px 20px; border-top: 1px solid var(--border); }
+    .fig-title { font-size: 13px; font-weight: 500; margin-bottom: 5px; line-height: 1.45; color: var(--ink); }
+    .fig-sub { font-family: var(--mono); font-size: 10px; color: var(--olive); }
+
+    /* ── EXPERIENCE ── */
+    .exp-section { background: var(--white); }
+    .timeline { display: flex; flex-direction: column; }
+    .titem {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .titem:last-child { border-bottom: none; padding-bottom: 0; }
+    @media (max-width: 700px) { .titem { grid-template-columns: 1fr; gap: 10px; } }
+    .tdate { font-family: var(--mono); font-size: 11px; color: var(--soft); padding-right: 24px; padding-top: 3px; line-height: 1.6; }
+    .tbody-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+    .t-role { font-weight: 500; font-size: 15px; color: var(--ink); }
+    .t-org { font-size: 13px; color: var(--muted); }
+    .exp-badge {
+      font-family: var(--mono); font-size: 10px;
+      padding: 2px 9px; border-radius: 4px; letter-spacing: .04em;
+    }
+    .eb-res { background: var(--teal-light); color: var(--teal); }
+    .eb-int { background: var(--olive-light); color: var(--olive); }
+    .eb-mkt { background: #EEF0E8; color: #5A6B4A; }
+    .t-highlights { display: flex; flex-direction: column; gap: 7px; margin-bottom: 12px; }
+    .t-hi { font-size: 13px; color: var(--muted); line-height: 1.7; display: flex; gap: 10px; }
+    .t-hi::before { content: '→'; color: var(--teal-mid); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+    .tskills { display: flex; gap: 7px; flex-wrap: wrap; }
+    .ts {
+      font-family: var(--mono); font-size: 10px;
+      color: var(--olive); border: 1px solid var(--border);
+      padding: 3px 8px; border-radius: 4px; background: var(--bg);
+    }
+
+    /* ── PUBLICATIONS ── */
+    .pub-section { background: var(--bg); }
+    .pub-list { display: flex; flex-direction: column; gap: 12px; }
+    .pub {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 9px;
+      padding: 20px 22px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: start;
+      transition: all .15s;
+    }
+    .pub:hover { border-color: var(--teal-mid); }
+    .pub-badge { font-family: var(--mono); font-size: 10px; padding: 3px 9px; border-radius: 4px; white-space: nowrap; margin-top: 2px; letter-spacing: .04em; }
+    .pb-award { background: #FDF3E0; color: #8A6B1A; border: 1px solid #E8CC88; }
+    .pb-conf { background: var(--teal-light); color: var(--teal); }
+    .pb-jour { background: var(--olive-light); color: var(--olive); }
+    .pub-title { font-size: 13px; font-weight: 500; margin-bottom: 5px; line-height: 1.5; color: var(--ink); }
+    .pub-meta { font-size: 11px; color: var(--muted); font-family: var(--mono); }
+
+    /* ── EDUCATION ── */
+    .edu-section { background: var(--white); }
+    .edu-stack { display: flex; flex-direction: column; }
+    .edu-item {
+      display: grid;
+      grid-template-columns: 170px 1fr;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .edu-item:last-child { border-bottom: none; padding-bottom: 0; }
+    @media (max-width: 700px) { .edu-item { grid-template-columns: 1fr; gap: 10px; } }
+    .edu-left { padding-right: 24px; padding-top: 3px; display: flex; flex-direction: column; gap: 5px; }
+    .edu-date { font-family: var(--mono); font-size: 11px; color: var(--soft); line-height: 1.6; }
+    .edu-loc { font-family: var(--mono); font-size: 10px; color: var(--soft); }
+    .edu-top-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 5px; }
+    .edu-deg { font-family: var(--serif); font-size: 20px; font-weight: 400; line-height: 1.2; color: var(--ink); }
+    .edu-school { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
+    .edu-badge { font-family: var(--mono); font-size: 10px; padding: 2px 9px; border-radius: 4px; letter-spacing: .04em; }
+    .eb-phd { background: var(--teal-light); color: var(--teal); }
+    .eb-bs { background: var(--olive-light); color: var(--olive); }
+    .edu-courses-label { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--soft); margin-bottom: 9px; }
+    .edu-course-row { display: flex; flex-wrap: wrap; gap: 7px; }
+    .ec { font-size: 12px; color: var(--muted); background: var(--bg); border: 1px solid var(--border); padding: 4px 10px; border-radius: 5px; }
+
+    /* ── SKILLS ── */
+    .skills-section { background: var(--bg); }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 700px) { .skills-grid { grid-template-columns: 1fr 1fr; } }
+    .sk-card { border: 1px solid var(--border); border-radius: 9px; padding: 18px; background: var(--white); }
+    .sk-label { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--olive); margin-bottom: 12px; }
+    .sk-items { display: flex; flex-direction: column; gap: 6px; }
+    .sk-item { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 8px; }
+    .sk-item::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--teal-mid); flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 28px 48px;
+      border-top: 1px solid var(--border);
+      background: var(--teal-dark);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .footer-left { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.45); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,.6); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="logo">Fatih Kocabas<span>.eng</span></a>
+    <div class="nav-links">
+      <a href="#experience">work</a>
+      <a href="#publications">research</a>
+      <a href="#education">education</a>
+      <a href="#contact">contact</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div style="background:var(--white);border-bottom:1px solid var(--border)">
+    <div class="hero">
+      <div>
+        <div class="eyebrow"><span class="pulse"></span>Research Engineer · Open to Internships & Co-Op</div>
+        <h1>Robots that think,<br>systems that <em>work</em></h1>
+        <p class="hero-desc">Mechanical engineer and robotics researcher at UW–Madison. I build end-to-end systems — from fabricating soft magnetic microrobots to writing the optics control stack and deploying the full hardware pipeline.</p>
+        <div class="hero-actions">
+          <a href="#experience" class="btn-primary">View experience ↓</a>
+          <!-- Replace href with your actual CV link -->
+          <a href="Fatih_Kocabas_CV.pdf" class="btn-ghost" target="_blank">Download CV</a>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="stat"><strong>4</strong> publications</div>
+        <div class="stat"><strong>IEEE </strong> Best Paper Award</div>
+        <div class="stat"><strong>+10</strong> Completed Projects</div>
+        <div class="stat"><strong>+20</strong> Supervised Interns</div>
+        <div class="stat"><strong>2</strong> Marketing Awards</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SKILL STACK -->
+  <div class="stack-wrap">
+    <div class="layers">
+      <div class="layer">
+        <div class="layer-left">
+          <div class="layer-idx">01 — Physical</div>
+          <div class="layer-name"><em>Make</em> it real</div>
+        </div>
+        <div class="layer-right">
+          <div class="chip"><span class="dot dp"></span>3D Design & Printing</div>
+          <div class="chip"><span class="dot dp"></span>Laser Cutting & CNC</div>
+          <div class="chip"><span class="dot dp"></span>Optical Hardware</div>
+          <div class="chip"><span class="dot dp"></span>Lithography & Microfab</div>
+          <div class="chip"><span class="dot dp"></span>Magnetic Materials</div>
+          <div class="chip"><span class="dot dp"></span>Polymers</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-left">
+          <div class="layer-idx">02 — Embedded</div>
+          <div class="layer-name"><em>Make</em> it respond</div>
+        </div>
+        <div class="layer-right">
+          <div class="chip"><span class="dot dd"></span>ROS / ROS2</div>
+          <div class="chip"><span class="dot dd"></span>Optics</div>
+          <div class="chip"><span class="dot dd"></span>Arduino / Raspberry Pi</div>
+          <div class="chip"><span class="dot dd"></span>I2C / UART / SPI</div>
+          <div class="chip"><span class="dot dd"></span>Microcontrollers</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-left">
+          <div class="layer-idx">03 — Software</div>
+          <div class="layer-name"><em>Make</em> it scale</div>
+        </div>
+        <div class="layer-right">
+          <div class="chip"><span class="dot ds"></span>Python & C++</div>
+          <div class="chip"><span class="dot ds"></span>COMSOL / Ansys / FEM</div>
+          <div class="chip"><span class="dot ds"></span>Computer Vision</div>
+          <div class="chip"><span class="dot ds"></span>Data Analysis & HPC</div>
+          <div class="chip"><span class="dot ds"></span>MATLAB</div>
+        </div>
+      </div>
+      <div class="layer">
+        <div class="layer-left">
+          <div class="layer-idx">04 — Strategy</div>
+          <div class="layer-name"><em>Make</em> it matter</div>
+        </div>
+        <div class="layer-right">
+          <div class="chip"><span class="dot dg"></span>IEEE Peer Review</div>
+          <div class="chip"><span class="dot dg"></span>Technical Writing</div>
+          <div class="chip"><span class="dot dg"></span>Grant Drafting</div>
+          <div class="chip"><span class="dot dg"></span>Mentorship</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FIGURES -->
+  <section class="figures-section">
+    <div class="section-pad section-inner">
+      <div class="sh">
+        <div class="sh-t">Work in action</div>
+        <div class="sh-c">selected figures from previous work</div>
+      </div>
+      <div class="fig-grid">
+
+        <!-- FIGURE 1 — swap background-image for your actual figure -->
+        <div class="fig-card">
+          <div class="fig-thumb ft-1" style="/* background-image: url('figures/fig1.jpg'); */">
+            <div class="fig-badge">IEEE MARSS 2025</div>
+            <div class="fig-placeholder"></div>
+            <span>your figure here</span>
+          </div>
+          <div class="fig-info">
+            <div class="fig-title">Microporous soft robot — programmable locomotion & cargo release</div>
+            <div class="fig-sub">Best Application Paper Award · IEEE MARSS 2025</div>
+          </div>
+        </div>
+
+        <!-- FIGURE 2 -->
+        <div class="fig-card">
+          <div class="fig-thumb ft-2" style="/* background-image: url('figures/fig2.jpg'); */">
+            <div class="fig-badge">IEEE ICRA 2025</div>
+            <div class="fig-placeholder"></div>
+            <span>your figure here</span>
+          </div>
+          <div class="fig-info">
+            <div class="fig-title">DMD laser heating — spatially resolved magnetic programming map</div>
+            <div class="fig-sub">IEEE ICRA 2025</div>
+          </div>
+        </div>
+
+        <!-- FIGURE 3 -->
+        <div class="fig-card">
+          <div class="fig-thumb ft-3" style="/* background-image: url('figures/fig3.jpg'); */">
+            <div class="fig-badge">Lab · 2024</div>
+            <div class="fig-placeholder"></div>
+            <span>your figure here</span>
+          </div>
+          <div class="fig-info">
+            <div class="fig-title">Acoustic microrobot — pressure field tracing & manipulation</div>
+            <div class="fig-sub">Bio-Integrated Robotics Lab · UW–Madison</div>
+          </div>
+        </div>
+
+        <!-- FIGURE 4 -->
+        <div class="fig-card">
+          <div class="fig-thumb ft-4" style="/* background-image: url('figures/fig4.jpg'); */">
+            <div class="fig-badge">MDPI Robotics 2024</div>
+            <div class="fig-placeholder"></div>
+            <span>your figure here</span>
+          </div>
+          <div class="fig-info">
+            <div class="fig-title">MR elastomer stiffness tuning via fiber jamming</div>
+            <div class="fig-sub">MDPI Robotics 2024</div>
+          </div>
+        </div>
+
+        <!-- FIGURE 5 -->
+        <div class="fig-card">
+          <div class="fig-thumb ft-5" style="/* background-image: url('figures/fig5.jpg'); */">
+            <div class="fig-badge">Lab · 2024</div>
+            <div class="fig-placeholder"></div>
+            <span>your figure here</span>
+          </div>
+          <div class="fig-info">
+            <div class="fig-title">Magnetic field generation system — COMSOL simulation</div>
+            <div class="fig-sub">Bio-Integrated Robotics Lab · UW–Madison</div>
+          </div>
+        </div>
+
+        <!-- FIGURE 6 -->
+        <div class="fig-card">
+          <div class="fig-thumb ft-6" style="/* background-image: url('figures/fig6.jpg'); */">
+            <div class="fig-badge">Internship · 2022</div>
+            <div class="fig-placeholder"></div>
+            <span>your figure here</span>
+          </div>
+          <div class="fig-info">
+            <div class="fig-title">Custom ROS-controlled gripper for commercial robot arms</div>
+            <div class="fig-sub">Eliar Electronics · Istanbul</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="exp-section" id="experience">
+    <div class="section-pad section-inner">
+      <div class="sh"><div class="sh-t">Experience</div>
+      <div class="timeline">
+
+        <div class="titem">
+          <div class="tdate">Jun 2024<br>→ Present</div>
+          <div>
+            <div class="tbody-top">
+              <div class="t-role">Research Assistant</div>
+              <div class="t-org">— Bio-Integrated Robotics Lab, UW–Madison</div>
+              <span class="exp-badge eb-res">Research</span>
+            </div>
+            <div class="t-highlights">
+              <div class="t-hi">Built heat-assisted magnetic encoding setup using NIR laser, 3-DOF NdFeB magnet stage, and custom Python/C++ control — encodes shape-programmable soft elastomers.</div>
+              <div class="t-hi">Developed selective laser heating system with digital micromirror devices (DMD) for spatially resolved magnetic programming — 70% improvement in time efficiency.</div>
+              <div class="t-hi">Engineered microscale acoustic robots for object manipulation; novel manufacturing methods improved bubble stability for pressure field generation.</div>
+              <div class="t-hi">Designed lithography-based manufacturing setup for microscale magnetic soft materials from scratch.</div>
+              <div class="t-hi">Modeled magnetic fields via COMSOL & analytical methods for homogeneous field generation systems. Engineered the complete field generation systems.</div>
+            </div>
+            <div class="tskills">
+              <span class="ts">Python</span><span class="ts">C++</span><span class="ts">Optics</span><span class="ts">Lithography</span><span class="ts">System Design</span><span class="ts">FEM</span><span class="ts">Topology Optimization</span><span class="ts">Electromagnetic Control Systems</span>
+              <span class="ts">Acoustic Robotics</span><span class="ts">Marine Robotics</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="titem">
+          <div class="tdate">Feb 2022<br>→ Jun 2024</div>
+          <div>
+            <div class="tbody-top">
+              <div class="t-role">Undergraduate Research Assistant</div>
+              <div class="t-org">— Haptics & Robotics Lab, Bogazici University</div>
+              <span class="exp-badge eb-res">Research</span>
+            </div>
+            <div class="t-highlights">
+              <div class="t-hi">Developed electro-permanent magnets (EPM) to tune stiffness of magnetorheological elastomers; ran full electromagnetic simulations of force generation.</div>
+              <div class="t-hi">Built and deployed pneumatic controllers for soft robots.</div>
+              <div class="t-hi">Designed user interfaces for real-time control systems.</div>
+            </div>
+            <div class="tskills">
+              <span class="ts">Power Circuits</span><span class="ts">Control Systems</span><span class="ts">pneumatic control</span><span class="ts">Magnetic Simulation</span><span class="ts">GUI dev</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="titem">
+          <div class="tdate">Jun 2022<br>→ Sep 2022</div>
+          <div>
+            <div class="tbody-top">
+              <div class="t-role">Robotics Engineering Intern</div>
+              <div class="t-org">— Eliar Electronics, Istanbul</div>
+              <span class="exp-badge eb-int">Internship</span>
+            </div>
+            <div class="t-highlights">
+              <div class="t-hi">Developed ROS packages for industrial scaling systems integrated with commercial robot arms.</div>
+              <div class="t-hi">Engineered a custom robotic gripper compatible with commercial arms, controllable over ROS.</div>
+            </div>
+            <div class="tskills">
+              <span class="ts">ROS</span><span class="ts">C++</span><span class="ts">Python</span><span class="ts">gripper design</span><span class="ts">robot integration</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="titem">
+          <div class="tdate">Jul 2021<br>→ Mar 2023</div>
+          <div>
+            <div class="tbody-top">
+              <div class="t-role">Digital Marketing Intern</div>
+              <div class="t-org">— SIM Digital Creative Agency, Istanbul</div>
+              <span class="exp-badge eb-mkt">Internship</span>
+            </div>
+            <div class="t-highlights">
+              <div class="t-hi">Built ML algorithms in Python to optimize campaign performance — achieved 50% cost efficiency gain.</div>
+              <div class="t-hi">Contributed to award-winning campaigns: Gold Stevie Award & Golden Pulse Award.</div>
+              <div class="t-hi">Handled budgeting, competitor analysis, and full campaign execution across digital channels.</div>
+            </div>
+            <div class="tskills">
+              <span class="ts">Python</span><span class="ts">ML</span><span class="ts">campaign strategy</span><span class="ts">data analysis</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PUBLICATIONS -->
+  <section class="pub-section" id="publications">
+    <div class="section-pad section-inner">
+      <div class="sh"><div class="sh-t">Publications</div><div class="sh-c">4 published @ IEEE ICRA, MARSS, MDPI JBMR, 2 under revision· Reviewer: IEEE RA-L & ICRA. Nature Portfolio, Science Robotics</div></div>
+      <div class="pub-list">
+        <div class="pub">
+          <span class="pub-badge pb-jour">Journal</span>
+          <div>
+            <div class="pub-title">Shape-programmable Microporous Magnetic Soft Materials for On-demand Liquid Cargo Release</div>
+            <div class="pub-meta">Zhou, Kocabas, Alapan · J. of Bio and Microrobotics 2026</div>
+          </div>
+        </div>
+        <div class="pub">
+          <span class="pub-badge pb-award">Best Paper Award</span>
+          <div>
+            <div class="pub-title">Microporous Magnetic Soft Materials with Programmable Locomotion and On-demand Liquid Cargo Release</div>
+            <div class="pub-meta">Zhou, Kocabas, Alapan · IEEE MARSS 2025</div>
+          </div>
+        </div>
+        <div class="pub">
+          <span class="pub-badge pb-conf">ICRA 2025</span>
+          <div>
+            <div class="pub-title">Magnetic Programming of Soft Materials Using Digitally Processed Laser Heating</div>
+            <div class="pub-meta">Kocabas, Oguztuzun, Zhou, Alapan · IEEE ICRA 2025</div>
+          </div>
+        </div>
+        <div class="pub">
+          <span class="pub-badge pb-jour">Journal</span>
+          <div>
+            <div class="pub-title">Fiber Jamming of Magnetorheological Elastomers as a Technique for the Stiffening of Soft Robots</div>
+            <div class="pub-meta">Atakuru, Kocabas et al. · MDPI Robotics 2024</div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="edu-section" id="education">
+    <div class="section-pad section-inner">
+      <div class="sh"><div class="sh-t">Education</div></div>
+      <div class="edu-stack">
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="edu-date">Jun 2024<br>→ Present</div>
+            <div class="edu-loc">Madison, WI</div>
+          </div>
+          <div>
+            <div class="edu-top-row" style="align-items: baseline; gap: 12px;">
+              <div class="edu-deg" style="font-family: var(--serif); font-size: 22px;">University of Wisconsin–Madison</div>
+              <div style="font-size: 14px; color: var(--muted); font-weight: 400;">Madison, WI, USA</div>
+              <span class="edu-badge eb-phd">Ph.D. Candidate</span>
+            </div>
+            
+            <div style="font-family: var(--mono); font-size: 11px; color: var(--teal); margin-bottom: 12px; text-transform: uppercase; letter-spacing: 0.05em;">Doctoral Minor: Electrical and Computer Engineering</div>
+            
+            <div class="edu-courses-label">Research focus</div>
+            <div class="edu-course-row">
+              <span class="ec">Photonics</span>
+              <span class="ec">Biophotonics</span>
+              <span class="ec">Bio-MEMS</span>
+              <span class="ec">Printable Electronics</span>
+              <span class="ec">Data Driven Design</span>
+              <span class="ec">Scientific Computing with AI</span>
+              <span class="ec">Computational Electromagnetism</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="edu-item">
+          <div class="edu-left">
+            <div class="edu-date">Sep 2019<br>→ Jun 2024</div>
+            <div class="edu-loc">Istanbul, Türkiye</div>
+          </div>
+          <div>
+            <div class="edu-top-row" style="align-items: baseline; gap: 12px;">
+              <div class="edu-deg" style="font-family: var(--serif); font-size: 22px;">Bogazici University</div>
+              <div style="font-size: 14px; color: var(--muted); font-weight: 400;">Istanbul, Türkiye</div>
+              <span class="edu-badge eb-bs">Bachelor's of Science</span>
+            </div>
+            <div class="edu-courses-label" style="margin-top: 12px;">Relevant coursework</div>
+            <div class="edu-course-row">
+              <span class="ec">Control Systems</span>
+              <span class="ec">Mechatronics</span>
+              <span class="ec">Thermodynamics</span>
+              <span class="ec">Fluid Mechanics</span>
+              <span class="ec">Machine Design</span>
+              <span class="ec">Finite Element Analysis</span>
+              <span class="ec">Advanced Manufacturing & Materials</span>
+              <span class="ec">Computational Materials Science</span>
+              <span class="ec">Composite Materials</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <!-- SKILLS -->
+  <section class="skills-section">
+    <div class="section-pad section-inner">
+      <div class="sh"><div class="sh-t">Technical skills</div></div>
+      <div class="skills-grid">
+        <div class="sk-card">
+          <div class="sk-label">Programming</div>
+          <div class="sk-items">
+            <div class="sk-item">Python</div>
+            <div class="sk-item">C++</div>
+            <div class="sk-item">MATLAB</div>
+            <div class="sk-item">Data analysis</div>
+            <div class="sk-item">Linux</div>
+            <div class="sk-item">HPC</div>
+          </div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-label">Software & Simulation</div>
+          <div class="sk-items">
+            <div class="sk-item">SolidWorks</div>
+            <div class="sk-item">COMSOL</div>
+            <div class="sk-item">Ansys</div>
+            <div class="sk-item">ROS / ROS2</div>
+            <div class="sk-item">OpenCV</div>
+            <div class="sk-item">Github</div>
+            <div class="sk-item">OriginPro</div>
+          </div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-label">Manufacturing</div>
+          <div class="sk-items">
+            <div class="sk-item">3D Design & Printing</div>
+            <div class="sk-item">Laser Cutting</div>
+            <div class="sk-item">Water Jet / CNC</div>
+            <div class="sk-item">Turning Lathe</div>
+            <div class="sk-item">Lithography</div>
+          </div>
+        </div>
+        <div class="sk-card">
+          <div class="sk-label">Hardware</div>
+          <div class="sk-items">
+            <div class="sk-item">Arduino / RPi</div>
+            <div class="sk-item">IC Programming</div>
+            <div class="sk-item">I2C / RS232 / UART</div>
+            <div class="sk-item">DMD Optics</div>
+            <div class="sk-item">Thermal & VSM Cameras</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <div class="footer-left">fkocabas@wisc.edu · +1 608-209-2490</div>
+    <div class="footer-links">
+      <!-- Replace # with your actual URLs -->
+      <a href="https://www.linkedin.com/in/fatih-kocabas/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/f471hk" target="_blank">GitHub</a>
+      <a href="https://scholar.google.com.tr/citations?hl=tr&user=wLhuAgwAAAAJ" target="_blank">Google Scholar</a>
+    </div>
+  </footer>
+
+</body>
 </html>
